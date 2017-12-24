@@ -1,0 +1,14 @@
+{
+  "name": "OyuncuBot",
+  "description": "Discord bot",
+  "version": "1.0",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "discord.js": "11.1.0",
+    "ytdl-core": "0.18.5",
+    "opusscript": "1.2.1",
+  }
+}
