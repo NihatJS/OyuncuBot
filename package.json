@@ -10,6 +10,6 @@
     "discord.js": "11.1.0",
     "ytdl-core": "0.18.5",
     "opusscript": "1.2.1"
-    "ffmpeg-binaries": "3.2.2-3"
+    "ffmpeg-binaries": "3.2.2"
   }
 }
