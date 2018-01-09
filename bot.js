@@ -16,7 +16,7 @@ client.on('message', m => {
     const channel = m.guild.channels.get(m.content.split(' ')[1]) || m.member.voiceChannel;
     if (channel && channel.type === 'voice') {
       channel.join().then(conn => {
-	  if (message.member.hasPermission("MANAGE_MESSAGES")) {
+	  if (m.member.hasPermission("MANAGE_MESSAGES")) {
         conn.player.on('error', (...e) => console.log('player', ...e));
         if (!connections.has(m.guild.id)) connections.set(m.guild.id, { conn, queue: [] });
         m.reply('Tamamdır!');
@@ -27,7 +27,7 @@ client.on('message', m => {
     }
   } else if (m.content.startsWith('$çal')) {
     if (connections.has(m.guild.id)) {
-	if (message.member.hasPermission("MANAGE_MESSAGES")) {
+	if (m.member.hasPermission("MANAGE_MESSAGES")) {
       const connData = connections.get(m.guild.id);
       const queue = connData.queue;
       const url = m.content.split(' ').slice(1).join(' ')
@@ -43,7 +43,7 @@ client.on('message', m => {
     }
 	}
   } else if (m.content.startsWith('$geç')) {
-	if (message.member.hasPermission("MANAGE_MESSAGES")) {
+	if (m.member.hasPermission("MANAGE_MESSAGES")) {
     if (connections.has(m.guild.id)) {
       const connData = connections.get(m.guild.id);
       if (connData.dispatcher) {
