@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const ytdl = require('ytdl-core');
 const client = new Discord.Client({ fetchAllMembers: false, apiRequestMethod: 'sequential' });
-client.on('ready', () => { client.user.setGame('$yardım | V1.0'); });
+client.on('ready', () => { client.user.setGame('$test | V1.0'); });
 client.login(process.env.BOT_TOKEN).then(() => console.log(`${client.user.tag} (${client.user.id}) ismi ile giriş yapıldı.`))
 client.on('ready', () => { console.log("BOT: Şu an " + client.channels.size + " adet kanala ve " + client.guilds.size + " adet sunucuya hizmet veriliyor!"); });
 const connections = new Map();
@@ -11,14 +11,12 @@ let broadcast;
 
 
 client.on('message', m => {
-  let djRole = m.guild.roles.find("name", "DJ");
-  let sohbetsilRole = m.guild.roles.find("name", "sohbet.sil");
   if (!m.guild) return;
   if (m.content.startsWith('$gir')) {
     const channel = m.guild.channels.get(m.content.split(' ')[1]) || m.member.voiceChannel;
     if (channel && channel.type === 'voice') {
       channel.join().then(conn => {
-	  if(m.member.roles.has(djRole.id)) {
+	  if (message.member.hasPermission("MANAGE_MESSAGES")) {
         conn.player.on('error', (...e) => console.log('player', ...e));
         if (!connections.has(m.guild.id)) connections.set(m.guild.id, { conn, queue: [] });
         m.reply('Tamamdır!');
@@ -29,7 +27,7 @@ client.on('message', m => {
     }
   } else if (m.content.startsWith('$çal')) {
     if (connections.has(m.guild.id)) {
-	if(m.member.roles.has(djRole.id)) {
+	if (message.member.hasPermission("MANAGE_MESSAGES")) {
       const connData = connections.get(m.guild.id);
       const queue = connData.queue;
       const url = m.content.split(' ').slice(1).join(' ')
@@ -45,7 +43,7 @@ client.on('message', m => {
     }
 	}
   } else if (m.content.startsWith('$geç')) {
-	if(m.member.roles.has(djRole.id)) {
+	if (message.member.hasPermission("MANAGE_MESSAGES")) {
     if (connections.has(m.guild.id)) {
       const connData = connections.get(m.guild.id);
       if (connData.dispatcher) {
